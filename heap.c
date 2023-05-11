@@ -70,31 +70,35 @@ void heap_pop(Heap* pq){
 
   if(pq->size == 0) return;
 
-  int indice = 0;
+  int i = 0;
   
-
-  pq->heapArray[0] = pq->heapArray[pq->size];
+  pq->heapArray[0] = pq->heapArray[pq->size ];
   pq->size--;
   
    while(1){
-    
-    if(pq->heapArray[indice].priority < pq->heapArray[2*indice + 1].priority){
 
-      heapElem aux = pq->heapArray[2*indice + 1];
-      pq->heapArray[2*indice + 1] = pq->heapArray[indice];
-      pq->heapArray[indice] = aux;
+     int hijoIzquierdo = 2*i + 1;
+     int hijoDerecho = 2*i + 2;
+     int indice = i;
+     
+    if(hijoIzquierdo < pq->size && pq->heapArray[hijoIzquierdo].priority < pq->heapArray[indice].priority){
 
-      indice = 2*indice + 1;
+      indice = hijoIzquierdo;
+    }
+     if(hijoDerecho < pq->size && pq->heapArray[hijoDerecho].priority < pq->heapArray[indice].priority){
+
+      indice = hijoDerecho;
+    }
+
+    if (indice != i) { 
       
-    }else if(pq->heapArray[indice].priority < pq->heapArray[2*indice + 2].priority){
-
-      heapElem aux = pq->heapArray[2*indice + 2];
-      pq->heapArray[2*indice + 2] = pq->heapArray[indice];
+      heapElem aux = pq->heapArray[i];
+      pq->heapArray[i] = pq->heapArray[indice];
       pq->heapArray[indice] = aux;
-
-      indice = 2*indice + 2;
-    }else{
-      return;
+      i = indice; 
+      
+    } else {
+      break;
     }
   }
 
