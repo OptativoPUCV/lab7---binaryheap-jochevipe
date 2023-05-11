@@ -36,3 +36,22 @@ Wed 10 May 2023 04:01:00 PM UTC:
  tests:  2|2
 total_score: 20/70
 d060e19
+Thu 11 May 2023 03:51:53 PM UTC: 
+ heap.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+In file included from test.c:4:
+heap.c: In function ‘heap_push’:
+heap.c:56:19: error: ‘Heap’ {aka ‘struct Heap’} has no member named ‘priority’
+   56 |       int aux = pq->priority[(indice-1)/2];
+      |                   ^~
+heap.c:57:9: error: ‘Heap’ {aka ‘struct Heap’} has no member named ‘priority’
+   57 |       pq->priority[(indice-1)/2] = pq->priorities[indice];
+      |         ^~
+heap.c:57:38: error: ‘Heap’ {aka ‘struct Heap’} has no member named ‘priorities’
+   57 |       pq->priority[(indice-1)/2] = pq->priorities[indice];
+      |                                      ^~
+heap.c:58:9: error: ‘Heap’ {aka ‘struct Heap’} has no member named ‘priorities’
+   58 |       pq->priorities[indice] = aux;
+      |         ^~
+Compilation failed
+5986d68
