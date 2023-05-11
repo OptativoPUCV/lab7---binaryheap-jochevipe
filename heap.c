@@ -68,40 +68,42 @@ void heap_push(Heap* pq, void* data, int priority){
 
 void heap_pop(Heap* pq){
 
-  if(pq->size == 0) return;
-
-  int i = 0;
-  
-  pq->heapArray[0] = pq->heapArray[pq->size -1];
-  pq->size--;
-  
-   while(1){
-
-     int hijoIzquierdo = 2*i + 1;
-     int hijoDerecho = 2*i + 2;
-     int indice = i;
-     
-    if(hijoIzquierdo < pq->size && pq->heapArray[hijoIzquierdo].priority < pq->heapArray[indice].priority){
-
-      indice = hijoIzquierdo;
-    }
-     if(hijoDerecho < pq->size && pq->heapArray[hijoDerecho].priority < pq->heapArray[indice].priority){
-
-      indice = hijoDerecho;
+  if (pq->size == 0) {
+        // Si el montículo está vacío, no se realiza ninguna operación
+        return;
     }
 
-    if (indice != i) { 
-      
-      heapElem aux = pq->heapArray[i];
-      pq->heapArray[i] = pq->heapArray[indice];
-      pq->heapArray[indice] = aux;
-      i = indice; 
-      
-    } else {
-      break;
-    }
-  }
+    // Reemplazar la raíz con el último elemento del montículo
+    pq->heapArray[0] = pq->heapArray[pq->size - 1];
+    pq->size--;
 
+    // Realizar el reordenamiento hacia abajo para mantener la propiedad del montículo
+    int i = 0;
+    while (1) {
+        int leftChild = 2 * i + 1;
+        int rightChild = 2 * i + 2;
+        int smallest = i;
+
+        // Encontrar el índice del hijo con la prioridad más pequeña
+        if (leftChild < pq->size && pq->heapArray[leftChild].priority < pq->heapArray[smallest].priority) {
+            smallest = leftChild;
+        }
+        if (rightChild < pq->size && pq->heapArray[rightChild].priority < pq->heapArray[smallest].priority) {
+            smallest = rightChild;
+        }
+
+        if (smallest != i) {
+            // Intercambiar el elemento actual con el hijo de menor prioridad
+            heapElem temp = pq->heapArray[i];
+            pq->heapArray[i] = pq->heapArray[smallest];
+            pq->heapArray[smallest] = temp;
+
+            i = smallest; // Actualizar el índice al hijo de menor prioridad
+        } else {
+            // Si no se requiere intercambio, se ha restaurado la propiedad del montículo
+            break;
+        }
+    }
 }
 
 Heap* createHeap(){
