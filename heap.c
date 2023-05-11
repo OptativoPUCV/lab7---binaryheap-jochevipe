@@ -28,7 +28,6 @@ if(pq->size == 0) return NULL;
 
 void heap_push(Heap* pq, void* data, int priority){
 
-  
   if(pq->size == pq->capac){
 
     pq->capac = (pq->capac* 2) +1;
@@ -62,17 +61,31 @@ void heap_push(Heap* pq, void* data, int priority){
     }else{
       return;
     }
-
-    
   }
-
-
-  
 }
   
 
 
 void heap_pop(Heap* pq){
+
+  if(pq->size == 0) return;
+
+  int indice = pq->size;
+  pq->size--;
+  
+   while(1){
+    
+    if(pq->heapArray[indice].priority < pq->heapArray[(indice-1)/2].priority){
+
+      heapElem aux = pq->heapArray[(indice-1)/2];
+      pq->heapArray[(indice-1)/2] = pq->heapArray[indice];
+      pq->heapArray[indice] = aux;
+
+      indice = (indice-1)/2;
+    }else{
+      return;
+    }
+  }
 
 }
 
