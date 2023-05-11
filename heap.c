@@ -53,12 +53,14 @@ void heap_push(Heap* pq, void* data, int priority){
     
     if(pq->heapArray[indice].priority > pq->heapArray[(indice-1)/2].priority){
 
-      int aux = pq->priority[(indice-1)/2];
-      pq->priority[(indice-1)/2] = pq->priorities[indice];
-      pq->priorities[indice] = aux;
+      heapElem aux = pq->heapArray[(indice-1)/2];
+      pq->heapArray[(indice-1)/2] = pq->heapArray[indice];
+      pq->heapArray[indice] = aux;
 
+      indice = (indice-1)/2; 
     }
-    
+
+    return;
   }
 
 
